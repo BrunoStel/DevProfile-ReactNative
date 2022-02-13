@@ -1,5 +1,4 @@
 import React from 'react';
-import { Home } from './src/pages/home';
 import { ThemeProvider } from 'styled-components/native';
 import theme from './src/global/styles';
 import {
@@ -8,9 +7,8 @@ import {
   Roboto_700Bold,
 } from '@expo-google-fonts/roboto';
 import AppLoading from 'expo-app-loading';
-import { Signin } from './src/pages/Signin';
-import { SignUp } from './src/pages/SignUp';
 import { NavigationContainer } from '@react-navigation/native';
+import { Routes } from './src/routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,7 +23,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <ThemeProvider theme={theme}>
-        <SignUp />
+        <Routes />
       </ThemeProvider>
     </NavigationContainer>
   );
