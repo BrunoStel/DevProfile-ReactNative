@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, KeyboardAvoidingView, Platform, View } from 'react-native';
 import { Button } from '../../components/Form/Button';
 import { Input } from '../../components/Form/Input';
 import { SigninStyle } from './styles';
@@ -7,7 +7,11 @@ import logo from '../../assets/logo.png';
 
 export const Signin: React.FunctionComponent = () => {
   return (
-    <>
+    <KeyboardAvoidingView
+      enabled
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
       <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ flex: 1 }}
@@ -15,7 +19,9 @@ export const Signin: React.FunctionComponent = () => {
         <SigninStyle.Container>
           <SigninStyle.Content>
             <SigninStyle.Logo source={logo} />
-            <SigninStyle.Title>Faça o seu logon</SigninStyle.Title>
+            <View>
+              <SigninStyle.Title>Faça o seu logon</SigninStyle.Title>
+            </View>
             <Input placeholder="Email" />
             <Input placeholder="Senha" />
             <Button title="Entrar" />
@@ -33,6 +39,6 @@ export const Signin: React.FunctionComponent = () => {
           Criar uma conta
         </SigninStyle.CreateAccountTitle>
       </SigninStyle.CreateAccountButton>
-    </>
+    </KeyboardAvoidingView>
   );
 };
