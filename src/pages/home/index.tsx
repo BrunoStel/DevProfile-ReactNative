@@ -1,12 +1,26 @@
 import React from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import { HomeStyle } from './styles';
+import avatarDefault from '../../assets/AvatarDefault.jpg';
 
-export const Home: React.FunctionComponent = () => {
+export const Home = () => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View>
-        <Text>Home Page</Text>
-      </View>
-    </SafeAreaView>
+    <HomeStyle.Container>
+      <HomeStyle.Header>
+        <HomeStyle.UserWrapper>
+          <HomeStyle.UserInfo>
+            <HomeStyle.UserAvatarButton onPress={() => null}>
+              <HomeStyle.UserAvatar source={avatarDefault} />
+            </HomeStyle.UserAvatarButton>
+            <HomeStyle.UserInfoDetail>
+              <HomeStyle.UserGreeting>Olá, </HomeStyle.UserGreeting>
+              <HomeStyle.UserName>Bruno</HomeStyle.UserName>
+            </HomeStyle.UserInfoDetail>
+          </HomeStyle.UserInfo>
+          <HomeStyle.IconButton onPress={() => null}>
+            <HomeStyle.Icon name="power" />
+          </HomeStyle.IconButton>
+        </HomeStyle.UserWrapper>
+      </HomeStyle.Header>
+    </HomeStyle.Container>
   );
 };
