@@ -7,11 +7,13 @@ import { InputStyle } from '../Input/styles';
 interface Props extends TextInputProps {
   control: Control;
   name: string;
+  error: string | undefined;
 }
 
 export const InputControl: React.FunctionComponent<Props> = ({
   control,
   name,
+  error,
   ...otherProps
 }) => {
   return (
@@ -27,6 +29,7 @@ export const InputControl: React.FunctionComponent<Props> = ({
         )}
         name={name}
       />
+      {error && <InputControlStyle.Error>{error}</InputControlStyle.Error>}
     </InputControlStyle.Container>
   );
 };
