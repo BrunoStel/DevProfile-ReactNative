@@ -1,12 +1,6 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
-
-const AppName = styled.Text`
-  font-size: ${RFValue(30)}px;
-  font-family: ${({ theme }) => theme.fonts.regular};
-  color: ${({ theme }) => theme.colors.primary};
-  padding-top: 20px;
-`;
+import { Feather } from '@expo/vector-icons';
 
 const Container = styled.View`
   flex: 1;
@@ -30,9 +24,44 @@ const Title = styled.Text`
   margin-bottom: 24px;
 `;
 
-export const SigninStyle = {
+const Logo = styled.Image`
+  width: ${RFValue(160)}px;
+  height: ${RFValue(160)}px;
+  margin-bottom: ${RFValue(40)}px;
+`;
+
+const BackToSignIn = styled.TouchableOpacity`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: ${({ theme }) => theme.colors.gray800};
+  border-top-width: 1px;
+  border-color: ${({ theme }) => theme.colors.black};
+  padding: 16px 0;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+const BackToSignInTitle = styled.Text`
+  font-size: ${RFValue(16)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.primary};
+  margin-left: 16px;
+`;
+
+const Icon = styled(Feather)`
+  font-size: ${RFValue(20)}px;
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
+export const SignUpStyle = {
   Container,
   Content,
   Title,
-  AppName,
+  Logo,
+  BackToSignIn,
+  BackToSignInTitle,
+  Icon,
 };
