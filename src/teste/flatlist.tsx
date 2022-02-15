@@ -10,11 +10,13 @@ interface IData {
 }
 
 export const List = ({ data, renderItem, toggleDone }: IData) => {
+  console.log({ data });
   return (
     <ContainerFlat>
       <FlatList
         data={data}
-        renderItem={({ item }) => renderItem(item, toggleDone)}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => renderItem({ item, toggleDone })}
       />
     </ContainerFlat>
   );

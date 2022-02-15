@@ -41,7 +41,7 @@ export const Signin: React.FunctionComponent = () => {
       password: form.password,
     };
 
-    console.log(data);
+    // console.log(data);
   };
 
   return (
