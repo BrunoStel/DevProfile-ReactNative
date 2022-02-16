@@ -40,8 +40,7 @@ export const Signin: React.FunctionComponent = () => {
       email: form.email,
       password: form.password,
     };
-
-    console.log(data);
+    return data;
   };
 
   return (
