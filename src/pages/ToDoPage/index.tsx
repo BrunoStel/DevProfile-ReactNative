@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { List } from './flatlist';
-import { Item } from './item';
-import { Container, Input } from './styles';
 import { v4 as uuidv4 } from 'uuid';
+import { List } from '../../components/FlatList/List';
+import { ListPageStyle } from './styles';
 
 type TaskList = {
   id: string;
@@ -10,7 +9,7 @@ type TaskList = {
   done: boolean;
 };
 
-export const Page = () => {
+export const ToDoPage = () => {
   const [taskList, setTaskList] = useState([] as TaskList[]);
   const [task, setTask] = useState('');
 
@@ -35,17 +34,32 @@ export const Page = () => {
     setTaskList(newTaskList);
   };
 
+  const Item = (item: TaskList) => {
+    return (
+      <ListPageStyle.ContainerItem onPress={() => toggleDone(item.id)}>
+        {item.name && (
+          <ListPageStyle.TextFlat>{item.name}</ListPageStyle.TextFlat>
+        )}
+        {item.name && (
+          <ListPageStyle.IconCheck
+            name={item.done === false ? 'square' : 'check-square'}
+          />
+        )}
+      </ListPageStyle.ContainerItem>
+    );
+  };
+
   return (
     <>
-      <Container>
-        <Input
+      <ListPageStyle.Container>
+        <ListPageStyle.Input
           value={task}
           returnKeyType="send"
           onChangeText={e => setTask(e)}
           onSubmitEditing={handleSubmit}
         />
-      </Container>
-      <List renderItem={Item} data={taskList} toggleDone={toggleDone} />
+      </ListPageStyle.Container>
+      <List renderItem={Item} data={taskList} />
     </>
   );
 };

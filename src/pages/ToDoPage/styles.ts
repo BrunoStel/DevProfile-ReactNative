@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 
-export const Container = styled.View`
+const Container = styled.View`
   flex: 1;
   max-height: 150px;
   width: 100%;
@@ -10,9 +10,8 @@ export const Container = styled.View`
   justify-content: center;
 `;
 
-export const Input = styled.TextInput`
+const Input = styled.TextInput`
   width: 80%;
-  height: 30px;
   background-color: #fff;
   color: black;
   margin-top: 70px;
@@ -20,25 +19,26 @@ export const Input = styled.TextInput`
   padding: 5px;
 `;
 
-export const ContainerFlat = styled.View`
-  flex: 1;
-  width: 100%;
-  background-color: #c1c1c1;
-  justify-content: center;
-`;
-
-export const TextFlat = styled.Text`
+const TextFlat = styled.Text`
   font-size: 18px;
 `;
 
-export const IconCheck = styled(Feather)`
+const IconCheck = styled(Feather)`
   font-size: 20px;
-  color: black;
+  color: #000;
 `;
 
-export const ContainerItem = styled.TouchableOpacity`
+const ContainerItem = styled.TouchableOpacity`
+  height: 50px;
   padding: 10px;
-  flex: 1;
   flex-direction: row;
   justify-content: space-between;
 `;
+
+export const ListPageStyle = {
+  Container,
+  Input,
+  TextFlat,
+  IconCheck,
+  ContainerItem,
+};

@@ -53,8 +53,7 @@ export const SignUp: React.FunctionComponent = () => {
       password: form.password,
       passwordConfirmation: form.passwordConfirmation,
     };
-
-    // console.log(data);
+    return data;
   };
 
   return (
