@@ -13,7 +13,7 @@ export type TaskListState = {
   data: Task[];
 };
 
-export type TaskListAction<T> = {
+export type TaskListAction = {
   type: TaskListActionTypes;
-  payload?: T;
+  payload: Task[];
 };

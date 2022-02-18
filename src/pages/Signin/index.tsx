@@ -9,6 +9,7 @@ import { InputControl } from '../../components/Form/InputControl';
 import theme from '../../global/styles/index';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from 'axios';
 
 interface ScreenNavigationProp {
   navigate: (screen: string) => void;
@@ -17,6 +18,11 @@ interface ScreenNavigationProp {
 interface IFormInputs {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [name: string]: any;
+}
+
+interface IUser {
+  email: string;
+  password: string;
 }
 
 const formSchema = yup.object({
@@ -35,12 +41,28 @@ export const Signin: React.FunctionComponent = () => {
 
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
-  const handleSignIn = (form: IFormInputs) => {
-    const data = {
-      email: form.email,
-      password: form.password,
-    };
-    return data;
+  const getLogin = async (data: IUser) => {
+    const response = await axios.post(
+      'https://clean-node-api-teste.herokuapp.com/api/login',
+      data,
+    );
+    return response.data.acessToken;
+  };
+
+  const handleSignIn = async (form: IFormInputs) => {
+    try {
+      const data = {
+        email: form.email,
+        password: form.password,
+      };
+      const token = await getLogin(data);
+      if (token) {
+        alert('Usuário logado com sucesso');
+      }
+      return data;
+    } catch (error) {
+      alert('Usuário ou senha incorreto');
+    }
   };
 
   return (

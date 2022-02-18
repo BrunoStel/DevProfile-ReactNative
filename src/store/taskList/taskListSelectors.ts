@@ -1,3 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Task } from './taskListTypes';
 
-export const taskListSelector = (state: any) => state.taskList.data;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const taskListSelector = (state: any): Task[] => state.taskList.data;

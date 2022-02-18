@@ -9,9 +9,17 @@ import { useForm, FieldValues } from 'react-hook-form';
 import theme from '../../global/styles/index';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from 'axios';
 
 interface ScreenNavigationProp {
   goBack: () => void;
+}
+
+interface IAddUser {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
 }
 
 interface IFormInputs {
@@ -46,14 +54,29 @@ export const SignUp: React.FunctionComponent = () => {
 
   const { goBack } = useNavigation<ScreenNavigationProp>();
 
-  const handleSignIn = (form: IFormInputs) => {
-    const data = {
-      name: form.name,
-      email: form.email,
-      password: form.password,
-      passwordConfirmation: form.passwordConfirmation,
-    };
-    return data;
+  const postLogin = async (data: IAddUser) => {
+    const response = await axios.post(
+      'https://clean-node-api-teste.herokuapp.com/api/signup',
+      data,
+    );
+    return response.data.id;
+  };
+
+  const handleSignUp = async (form: IFormInputs) => {
+    try {
+      const data = {
+        name: form.name,
+        email: form.email,
+        password: form.password,
+        passwordConfirmation: form.passwordConfirmation,
+      };
+
+      await postLogin(data);
+      alert('Usuário cadastrado com sucesso');
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -112,7 +135,7 @@ export const SignUp: React.FunctionComponent = () => {
                 errors.passwordConfirmation.message
               }
             />
-            <Button title="Registrar" onPress={handleSubmit(handleSignIn)} />
+            <Button title="Registrar" onPress={handleSubmit(handleSignUp)} />
           </SignUpStyle.Content>
         </SignUpStyle.Container>
       </ScrollView>

@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { TaskListAction, TaskListState } from './taskListTypes';
+import {
+  TaskListAction,
+  TaskListActionTypes,
+  TaskListState,
+} from './taskListTypes';
 
 const INITIAL_STATE = {
   data: [],
@@ -9,10 +10,10 @@ const INITIAL_STATE = {
 
 export default function reducer(
   state = INITIAL_STATE,
-  action: TaskListAction<any>,
+  action: TaskListAction,
 ): TaskListState {
   switch (action.type) {
-    case 'UPDATE_TASK_LIST':
+    case TaskListActionTypes.UPDATE_TASK_LIST:
       return {
         ...state,
         data: action.payload,
