@@ -52,12 +52,12 @@ export const Signin: React.FunctionComponent = () => {
   const handleSignIn = async (form: IFormInputs) => {
     try {
       const data = {
-        email: form.email,
+        email: form.email.toLocaleLowerCase(),
         password: form.password,
       };
       const token = await getLogin(data);
       if (token) {
-        alert('Usuário logado com sucesso');
+        navigate('Home');
       }
       return data;
     } catch (error) {
@@ -89,6 +89,7 @@ export const Signin: React.FunctionComponent = () => {
               placeholderTextColor={theme.colors.light}
               autoCorrect={false}
               keyboardType="email-address"
+              onSubmitEditing={handleSubmit(handleSignIn)}
               error={errors.email && errors.email.message}
             />
             <InputControl
@@ -99,6 +100,7 @@ export const Signin: React.FunctionComponent = () => {
               placeholderTextColor={theme.colors.light}
               autoCorrect={false}
               secureTextEntry
+              onSubmitEditing={handleSubmit(handleSignIn)}
               error={errors.password && errors.password.message}
             />
             <Button title="Entrar" onPress={handleSubmit(handleSignIn)} />

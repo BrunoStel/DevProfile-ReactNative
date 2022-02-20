@@ -66,7 +66,7 @@ export const SignUp: React.FunctionComponent = () => {
     try {
       const data = {
         name: form.name,
-        email: form.email,
+        email: form.email.toLocaleLowerCase(),
         password: form.password,
         passwordConfirmation: form.passwordConfirmation,
       };

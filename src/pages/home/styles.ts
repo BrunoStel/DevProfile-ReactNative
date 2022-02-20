@@ -5,14 +5,14 @@ import { Dimensions } from 'react-native';
 
 const Container = styled.View`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.dark};
 `;
 
 const Header = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   width: 100%;
   height: ${RFPercentage(17)}px;
-  background-color: ${({ theme }) => theme.colors.secondary};
+  background-color: #424e5e;
   padding-top: ${RFValue(28)}px;
   justify-content: center;
   align-items: center;
@@ -46,13 +46,11 @@ const UserInfoDetail = styled.View`
 `;
 
 const UserGreeting = styled.Text`
-  color: ${({ theme }) => theme.colors.gray800};
   font-size: ${RFValue(18)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
 const UserName = styled.Text`
-  color: ${({ theme }) => theme.colors.gray800};
   font-size: ${RFValue(18)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   font-weight: bold;

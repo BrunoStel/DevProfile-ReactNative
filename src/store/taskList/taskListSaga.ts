@@ -1,16 +1,24 @@
-// import { all, takeLatest, call, put } from 'redux-saga/effects';
-// import { AxiosResponse } from 'axios';
+import { all, takeLatest, put } from 'redux-saga/effects';
+import axios, { AxiosResponse } from 'axios';
+import { TaskListActionTypes } from './taskListTypes';
 
-// export function* load() {
-//   try {
-//     const response: AxiosResponse<IProduct[]> = yield call(
-//       api.get,
-//       '/products',
-//     );
-//     yield put(loadProductsSuccess(response.data));
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+interface IData {
+  email: string;
+  password: string;
+}
 
-// export default all([takeLatest(ProductsTypes.LOAD_REQUEST, load)]);
+export function* signIn({ data: IData }) {
+  try {
+    const response = yield axios.post(
+      'https://clean-node-api-teste.herokuapp.com/api/login',
+      data,
+    );
+    yield put(loadProductsSuccess(response.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export default all([
+  takeLatest(TaskListActionTypes.ASYNC_UPDATE_TASK_LIST, signIn),
+]);

@@ -9,6 +9,7 @@ import { ListPageStyle } from './styles';
 import { Task } from '../../store/taskList/taskListTypes';
 import { taskListSelector } from '../../store/taskList/taskListSelectors';
 import { addTaskList } from '../../store/taskList/taskListActions';
+import { useNavigation } from '@react-navigation/native';
 
 type TaskList = {
   id: string;
@@ -17,12 +18,18 @@ type TaskList = {
   deadline: string;
 };
 
+interface ScreenNavigationProp {
+  navigate: (screen: string) => void;
+}
+
 export const ToDoPageRegister = () => {
   const [task, setTask] = useState('');
   const [deadline, setDeadline] = useState('');
 
   const taskList = useSelector(taskListSelector);
   const dispatch = useDispatch();
+
+  const { navigate } = useNavigation<ScreenNavigationProp>();
 
   const handleSubmit = () => {
     const list = [...taskList];
@@ -76,13 +83,14 @@ export const ToDoPageRegister = () => {
 
   return (
     <>
-      <ListPageStyle.Container>
+      <ListPageStyle.ContainerHeader>
         <ListPageStyle.Title>Minhas Tarefas</ListPageStyle.Title>
         <ListPageStyle.Input
           value={task}
           returnKeyType="send"
           onChangeText={e => setTask(e)}
           placeholder={'Digite a tarefa'}
+          maxLength={60}
         />
         <ListPageStyle.Input
           value={deadline}
@@ -90,14 +98,23 @@ export const ToDoPageRegister = () => {
           onChangeText={e => setDeadline(e)}
           placeholder={'Digite o prazo'}
           onSubmitEditing={handleSubmit}
+          keyboardType={'numeric'}
+          maxLength={8}
         />
         <Button
           title="Registrar"
           style={{ width: 250, marginTop: 5 }}
           onPress={handleSubmit}
         />
+      </ListPageStyle.ContainerHeader>
+      <ListPageStyle.Container>
+        <List renderItem={Item} data={taskList} />
+        <Button
+          title="Voltar"
+          style={{ width: '100%', marginTop: 0, borderRadius: 0 }}
+          onPress={() => navigate('Home')}
+        />
       </ListPageStyle.Container>
-      <List renderItem={Item} data={taskList} />
     </>
   );
 };

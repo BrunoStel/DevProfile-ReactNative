@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 
-const Container = styled.View`
+const ContainerHeader = styled.View`
   flex: 1;
   padding-top: 25px;
   max-height: 300px;
@@ -9,9 +9,11 @@ const Container = styled.View`
   background-color: #424e5e;
   align-items: center;
   justify-content: center;
-  border-style: dashed;
-  border-bottom-width: 1.5px;
-  border-bottom-color: #e9e9e9;
+`;
+
+const Container = styled.View`
+  flex: 1;
+  background-color: ${({ theme }) => theme.colors.dark};
 `;
 
 const Title = styled.Text`
@@ -68,6 +70,7 @@ const TouchableHighlight = styled.TouchableHighlight`
 `;
 
 export const ListPageStyle = {
+  ContainerHeader,
   Container,
   Input,
   TextFlat,

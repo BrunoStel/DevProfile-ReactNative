@@ -4,7 +4,6 @@ import { Feather } from '@expo/vector-icons';
 const ContainerFlat = styled.View`
   width: 100%;
   flex: 1;
-  background-color: #7a959e;
   justify-content: center;
 `;
 
