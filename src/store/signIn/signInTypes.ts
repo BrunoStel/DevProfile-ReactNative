@@ -28,7 +28,8 @@ export interface IUserPayload {
 }
 
 export type UserPayload = {
-  data?: IUser;
+  payload?: IUser | undefined;
+  data?: IUser | undefined;
   acessToken?: AxiosResponse<AcessToken>;
   isLoading?: boolean;
 };

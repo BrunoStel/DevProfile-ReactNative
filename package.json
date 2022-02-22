@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "expo start --dev-client",
-    "android": "expo run:android",
+    "start": "react-native start",
+    "android": "react-native run-android",
     "ios": "expo run:ios",
     "web": "expo start --web"
   },
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.2",
     "@hookform/resolvers": "^2.8.8",
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "@reduxjs/toolkit": "^1.7.2",

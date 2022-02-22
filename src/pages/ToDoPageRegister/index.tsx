@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,6 +11,7 @@ import { Task } from '../../store/taskList/taskListTypes';
 import { taskListSelector } from '../../store/taskList/taskListSelectors';
 import { addTaskList } from '../../store/taskList/taskListActions';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type TaskList = {
   id: string;
@@ -31,7 +33,20 @@ export const ToDoPageRegister = () => {
 
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
-  const handleSubmit = () => {
+  const getTaskListStorage = async () => {
+    const taskListString = await AsyncStorage.getItem('@taskList');
+    if (!taskListString) {
+      return null;
+    }
+    const taskList = JSON.parse(taskListString);
+    dispatch(addTaskList(taskList));
+  };
+
+  useEffect(() => {
+    getTaskListStorage();
+  }, []);
+
+  const handleSubmit = async () => {
     const list = [...taskList];
     if (task.trim() && deadline.trim()) {
       list.push({
@@ -40,16 +55,18 @@ export const ToDoPageRegister = () => {
         done: false,
         deadline: deadline.trim(),
       });
+      await AsyncStorage.setItem('@taskList', JSON.stringify(list));
       dispatch(addTaskList(list));
       setTask('');
       setDeadline('');
     }
   };
 
-  const toggleDone = (id: string) => {
+  const toggleDone = async (id: string) => {
     const newTaskList = taskList.map((item: Task) =>
       item.id === id ? { ...item, done: !item.done } : item,
     );
+    await AsyncStorage.setItem('@taskList', JSON.stringify(newTaskList));
     dispatch(addTaskList(newTaskList));
   };
 
@@ -108,7 +125,7 @@ export const ToDoPageRegister = () => {
         />
       </ListPageStyle.ContainerHeader>
       <ListPageStyle.Container>
-        <List renderItem={Item} data={taskList} />
+        <List renderItem={Item} data={taskList} isUsingStorage={true} />
         <Button
           title="Voltar"
           style={{ width: '100%', marginTop: 0, borderRadius: 0 }}

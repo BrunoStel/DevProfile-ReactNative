@@ -8,18 +8,23 @@ import { addTaskList } from '../../store/taskList/taskListActions';
 import { taskListSelector } from '../../store/taskList/taskListSelectors';
 import { Task } from '../../store/taskList/taskListTypes';
 import { ListStyle } from './styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface IData {
   data: any[];
   renderItem: any;
+  isUsingStorage: boolean;
 }
 
-export const List = ({ data, renderItem }: IData) => {
+export const List = ({ data, renderItem, isUsingStorage }: IData) => {
   const dispatch = useDispatch();
   const taskList = useSelector(taskListSelector) as Task[];
 
-  const removeItem = (index: number) => {
+  const removeItem = async (index: number) => {
     const newTaskList = taskList.filter((item, indice) => indice != index);
+    if (isUsingStorage) {
+      await AsyncStorage.setItem('@taskList', JSON.stringify(newTaskList));
+    }
     dispatch(addTaskList(newTaskList));
   };
 
