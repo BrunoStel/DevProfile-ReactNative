@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AcessToken } from './signInTypes';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const signInSelector = (state: any): AcessToken =>
-  state.signIn.data.acessToken;
+export const tokenSelector = (state: any): AcessToken => state.signIn.data;
+export const loadingSelector = (state: any): AcessToken =>
+  state.signIn.isLoading;

@@ -9,7 +9,10 @@ import { InputControl } from '../../components/Form/InputControl';
 import theme from '../../global/styles/index';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadUserRequest } from '../../store/signIn/signInAction';
+import { tokenSelector } from '../../store/signIn/signInSelectors';
+import { saveUserData } from '../../store/user/userActions';
 
 interface ScreenNavigationProp {
   navigate: (screen: string) => void;
@@ -18,11 +21,6 @@ interface ScreenNavigationProp {
 interface IFormInputs {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [name: string]: any;
-}
-
-interface IUser {
-  email: string;
-  password: string;
 }
 
 const formSchema = yup.object({
@@ -38,31 +36,16 @@ export const Signin: React.FunctionComponent = () => {
   } = useForm<FieldValues>({
     resolver: yupResolver(formSchema),
   });
+  const dispatch = useDispatch();
 
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
-  const getLogin = async (data: IUser) => {
-    const response = await axios.post(
-      'https://clean-node-api-teste.herokuapp.com/api/login',
-      data,
-    );
-    return response.data.acessToken;
-  };
-
   const handleSignIn = async (form: IFormInputs) => {
-    try {
-      const data = {
-        email: form.email.toLocaleLowerCase(),
-        password: form.password,
-      };
-      const token = await getLogin(data);
-      if (token) {
-        navigate('Home');
-      }
-      return data;
-    } catch (error) {
-      alert('Usuário ou senha incorreto');
-    }
+    const data = {
+      email: form.email.toLocaleLowerCase(),
+      password: form.password,
+    };
+    dispatch(loadUserRequest(data));
   };
 
   return (

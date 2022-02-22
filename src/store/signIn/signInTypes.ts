@@ -1,5 +1,11 @@
+import { AxiosResponse } from 'axios';
+
 export enum SignInTypes {
-  ASYNC_SIGNIN = 'ASYNC_SIGNIN',
+  LOAD_SUCESS = 'LOAD_SUCESS',
+  LOAD_REQUEST = 'LOAD_REQUEST',
+  CLEAR_TOKEN = 'CLEAR_TOKEN',
+  SET_IS_ERROR = 'SET_IS_ERROR',
+  SET_IS_LOADING = 'SET_IS_LOADING',
 }
 
 export interface AcessToken {
@@ -7,9 +13,27 @@ export interface AcessToken {
 }
 
 export type SignInState = {
-  data: AcessToken;
+  readonly data: AcessToken;
+  readonly loading: boolean;
+  readonly error: boolean;
 };
-export type SignInAction = {
+
+export interface IUser {
+  email: string;
+  password: string;
+}
+
+export interface IUserPayload {
+  payload: { email: string; password: string };
+}
+
+export type UserPayload = {
+  data?: IUser;
+  acessToken?: AxiosResponse<AcessToken>;
+  isLoading?: boolean;
+};
+
+export type SignInActionTypes = {
   type: SignInTypes;
-  payload: AcessToken;
+  payload?: UserPayload;
 };

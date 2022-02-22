@@ -4,6 +4,8 @@ import avatarDefault from '../../assets/AvatarDefault.jpg';
 import { Button } from '../../components/Form/Button';
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { clearToken } from '../../store/signIn/signInAction';
 
 interface ScreenNavigationProp {
   navigate: (screen: string) => void;
@@ -11,6 +13,8 @@ interface ScreenNavigationProp {
 
 export const Home = () => {
   const { navigate } = useNavigation<ScreenNavigationProp>();
+
+  const dispatch = useDispatch();
 
   const exit = () => {
     Alert.alert('Tem certeza?', 'Deseja realmente sair', [
@@ -20,7 +24,9 @@ export const Home = () => {
       },
       {
         text: 'Sair',
-        onPress: () => navigate('SignIn'),
+        onPress: () => {
+          dispatch(clearToken());
+        },
       },
     ]);
   };
